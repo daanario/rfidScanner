@@ -1,5 +1,7 @@
 //Adressen på Bluetooth Mate, Password er 1234
 var macAddress = "00:06:66:7D:98:60";
+var mountainbikers = 0;
+var vandrere = 0;
 
 function onLoad(){
 	document.addEventListener("deviceready", onDeviceReady, false);
@@ -17,7 +19,15 @@ function onConnect() {
 
 
 function onMessage(data) {
-    document.getElementById("fraArduino").innerHTML =""+ data;       
+    if(data=='m'){
+		mountainbikers+=1;
+		document.getElementByID("mountainbikers").innerHTML = mountainbikers;
+	}       
+	
+	if(data=='v'){
+		vandrere+=1;
+		document.getElementByID("vandrere").innerHTML = vandrere;
+	}
 }
 
 function onDisconnect() {
@@ -29,13 +39,5 @@ function subscribeFailed() {
         alert("subscribe failed");
 }
 
-while(1){
-	if(onMessage()=="m"){
-		document.getElementByID("mountainbikers").innerHTML = onMessage();
-	}
 
-	if(onMessage()=="v"){
-		document.getElementByID("vandrere").innerHTML = onMessage();
-	}
-}
 
